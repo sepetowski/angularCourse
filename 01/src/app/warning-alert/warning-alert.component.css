@@ -1,0 +1,14 @@
+.warning {
+  margin-top: 20px;
+  width: 300px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: orange;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+p {
+  margin-bottom: 0;
+}

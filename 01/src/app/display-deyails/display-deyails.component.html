@@ -1,0 +1,5 @@
+<button (click)="onDisplay()">Display Details</button>
+@if (isShown) {<p>Secret Password</p>}
+@for (click of btnClicks; track $index) {
+<p [ngClass]="{'bgc': click>=5}">{{click}}</p>
+}
