@@ -4,7 +4,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
   selector: '[appUnless]',
 })
 export class UnlessDirective {
-  //set is for generating a method that will change propetry whenever the property changes
+  //set is for generating a method that will change propetry whenever the property changes. its setter that gets value from @Input and set unnlesvalue when it codntion changes
   //has to be the sdame naame as selector name
   @Input('appUnless') set unless(condition: boolean) {
     if (!condition) {
