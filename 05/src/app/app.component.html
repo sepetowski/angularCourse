@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+      <br><br>
+      <ul class="list-group">
+        @for (number of numbers; track $index) {
+        @if (!onlyOdd && number %2 ===0) {
+        <li class="list-group-item">
+          {{number}}
+        </li>
+        }@else if(onlyOdd && number %2 !==0) {
+        <li class="list-group-item">
+          {{number}}
+        </li>
+        }
+        }
+      </ul>
+      <ng-template [ngIf]="onlyOdd">
+        <p>Only odd</p>
+      </ng-template>
+      <p *appUnless="onlyOdd">Showing only event</p>
+      <p appBasicHighLight>Styled with directive (wrong)</p>
+      <!-- if pasing a string as data to bind you can omit [] adn just use ""="" -->
+      <p appBetterHighlight deafultColor='yellow' [highlightColor]="'red'">Styled with directive (good)</p>
+      <!-- ngSwitch -->
+      <div>@switch (value) {
+        @case (1) {
+        <p>xyz</p>
+        }
+        @case (10) {
+        <p>xyz xyz xyz</p>
+        }
+        @default {
+        <p>no</p>
+        }
+
+        }
+      </div>
+    </div>
+  </div>
+</div>
