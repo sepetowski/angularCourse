@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <!-- Add a Form with the following Inputs (and Validators)
+             1) Mail address (should not be empty and should be an email address)
+             2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+                Set "Advanced" as Default
+             3) A Password field (should not be empty)
+             4) A Submit Button
+  
+             Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+  
+             Upon submitting the form, you should simply print the Value of the Form to the Console.
+             Optionally, display it in your template.
+        -->
+            <form (ngSubmit)="onSubmit()" #form="ngForm">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" ngModel name="email" required email
+                        #email="ngModel">
+                    <p *ngIf="!email.isValid && email.touched">Wrong email</p>
+                </div>
+                <div class="radio" *ngFor="let subscription of subscriptions">
+                    <label>
+                        <input type="radio" name="subscription" [ngModel]="subscriptions[1]" [value]="subscription">
+                        {{subscription}}
+                    </label>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" name="password" id="password" ngModel required
+                        #password="ngModel">
+                    <p *ngIf="!password.isValid && password.touched">Wrong password</p>
+                </div>
+                <button [disabled]="!form.valid" class="btn btn-primary" type="submit">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
