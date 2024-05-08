@@ -1,18 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { PlaceholderDirective } from '../directives/placeholder.directive';
+import { AlertComponent } from '../alert/alert.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
   isLoginMode = true;
   isLogging = false;
-  error: string | null = null;
+  //it will serach for first item with such a type
+  @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
+  private sub: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  private showErrorAlert(error: string) {
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+
+    //must clear bcs there might be other components in this place
+    hostViewContainerRef.clear();
+    const componentRef = hostViewContainerRef.createComponent(AlertComponent);
+    componentRef.instance.message = error;
+    this.sub = componentRef.instance.close.subscribe(() => {
+      this.sub.unsubscribe();
+      hostViewContainerRef.clear();
+    });
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -35,11 +53,15 @@ export class AuthComponent {
         this.router.navigate(['/recipes']);
       },
       error: (error: string) => {
-        this.error = error;
+        this.showErrorAlert(error);
         this.isLogging = false;
       },
     });
 
     form.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

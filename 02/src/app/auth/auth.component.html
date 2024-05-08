@@ -22,10 +22,9 @@
         </form>
         <br>
         <app-spinner [isLoading]="isLogging" />
-        @if (error) {
-        <div class="alert alert-danger">
-            <p>{{error}}</p>
-        </div>
-        }
+        <!-- @if (error) {
+        <app-alert [message]="error" (close)="onClose()" />
+        } -->
     </div>
 </div>
+<ng-template appPlaceholder></ng-template>
