@@ -26,6 +26,8 @@ export class AuthComponent implements OnDestroy {
     hostViewContainerRef.clear();
     const componentRef = hostViewContainerRef.createComponent(AlertComponent);
     componentRef.instance.message = error;
+
+    //wehn we subscrbie we basicly want to use Subject but wehen creating a component we have to use eventEmiter as Output infomration
     this.sub = componentRef.instance.close.subscribe(() => {
       this.sub.unsubscribe();
       hostViewContainerRef.clear();
@@ -62,6 +64,6 @@ export class AuthComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) this.sub.unsubscribe();
   }
 }
